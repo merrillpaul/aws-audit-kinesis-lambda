@@ -1,0 +1,45 @@
+
+
+service: qi-audit-kinesis
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: us-east-2
+  environment:
+    DB_URL: a_db_url
+    
+functions:
+  eventsHttp:
+    handler: src/offline/httpHandler.logEvent
+    events:
+      - http:
+          method: POST
+          path: /logEvent
+          cors: true
+  
+package:
+  # exclude:
+    # - node_modules/@types/**/*
+  include:
+    - src/**/*
+    #- node_modules/**/*
+  # excludeDevDependencies: false
+
+plugins:
+ - serverless-webpack
+ - serverless-offline
+ - serverless-domain-manager
+
+
+custom:
+  defaults:
+    stage: dev
+    mode: development
+  webpack:
+    includeModules: true # enable auto-packing of external modules
+  #customDomain:
+    #domainName: banana-server.qidevteam.com
+    #basePath: ''
+    #stage: production
+    #createRoute53Record: true
