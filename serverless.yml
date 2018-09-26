@@ -19,13 +19,9 @@ functions:
           cors: true
   
 package:
-  # exclude:
-    # - node_modules/@types/**/*
   include:
     - src/**/*
-    #- node_modules/**/*
-  # excludeDevDependencies: false
-
+  
 plugins:
  - serverless-webpack
  - serverless-offline
