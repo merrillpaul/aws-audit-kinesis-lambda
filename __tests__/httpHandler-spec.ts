@@ -6,7 +6,7 @@ import { Kinesis, AWSError } from 'aws-sdk';
 
 beforeEach(() => {
   // Clear all instances and calls to constructor and all methods:
-  Kinesis.mockClear();
+  //Kinesis.mockClear();
 });
 
 describe("Http Handler", () => {

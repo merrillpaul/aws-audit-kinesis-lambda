@@ -22,6 +22,11 @@ functions:
       - stream:
           type: kinesis
           #arn: need an arn
+          streamName: qi-audit-log-stream
+          arn:
+            Fn::GetAtt:
+              - qi-audit-log-stream
+              - Arn
           batchSize: 100
           startingPosition: LATEST
   

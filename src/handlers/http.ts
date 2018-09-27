@@ -16,17 +16,18 @@ const kinesis: Kinesis = new Kinesis({
  * @param context 
  * @param callback 
  */
-export const logEvent: Handler = async (event: any, context: any, callback: Callback) => {
+export const logEvent: Handler =  (event: any, context: any, callback: Callback) => {
     console.log("You POSTed an event!");
     kinesis.putRecord({
         Data: JSON.stringify(event.body),
         PartitionKey: 'US',
         StreamName: process.env.KINESIS_STREAM_NAME_AUDIT_LOG as string
-    }, function (err) { 
+    }, (err) => { 
         if (err) {
+            console.error("Error", err);
             callback(err, { statusCode: 500, body: "Error writing to kinesis" } );
-        }
-        else { 
+        } else { 
+            console.log("Return success from http after putting kinesis");
             callback(null, { statusCode: 200, body: JSON.stringify({status: "Success", body: event.body})} );
         }
     });
