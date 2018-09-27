@@ -6,7 +6,7 @@ import * as fs from 'fs';
  * @param path yaml file location
  * @param propertyName property group from the yaml to be inserted into node process env
  */
-export const yaml2env = (path: string, propertyName: string) => {
+export const yaml2env = (path: string, propertyName: string): void => {
     try {
         const yamlConfig = yaml.safeLoad(fs.readFileSync(path, 'utf-8'));
         Object.keys(yamlConfig[propertyName]).forEach(k => {

@@ -1,7 +1,5 @@
 import { logEvent } from '@audit/handlers/http';
 
-import { Context } from 'aws-lambda';
-
 test('Should invoke the callback', () => {
   let called = false;
   let passedContent: any = {};

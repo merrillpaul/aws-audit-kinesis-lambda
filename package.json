@@ -29,7 +29,7 @@
     "watch": "npm run build -- --watch",
     "watch:test": "jest --watch",
     "kinesis": "kinesalite",
-    "pretest": "npm i",
+    "pretest": "npm i && npm run clean",
     "prekinesis": "npm i"
   },
   "dependencies": {},

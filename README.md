@@ -1,33 +1,38 @@
 
-Project created using Yeoman TypeScript NodeJS Generator (https://github.com/ospatil/generator-node-typescript#readme)
+# Audit log processing with AWS Serverless with Kinesis streams
 
-# Using this module in other modules
 
-Here is a quick example of how this module can be used in other modules. The [TypeScript Module Resolution Logic](https://www.typescriptlang.org/docs/handbook/module-resolution.html) makes it quite easy. The file `src/index.ts` is a [barrel](https://basarat.gitbooks.io/typescript/content/docs/tips/barrel.html) that re-exports selected exports from other files. The _package.json_ file contains `main` attribute that points to the generated `lib/index.js` file and `typings` attribute that points to the generated `lib/index.d.ts` file.
 
-> If you are planning to have code in multiple files (which is quite natural for a NodeJS module) that users can import, make sure you update `src/index.ts` file appropriately.
+## Design
 
-Now assuming you have published this amazing module to _npm_ with the name `my-amazing-lib`, and installed it in the module in which you need it -
+## Local Setup
 
-- To use the `Greeter` class in a TypeScript file -
+### Elasticsearch
 
-```ts
-import { Greeter } from "my-amazing-lib";
+### Kibana
 
-const greeter = new Greeter("World!");
-greeter.greet();
+## Offline mode
+
+### Kinesalite
+
+### Publish to Kinesis
+```sh
+curl -d "{'key1':'value1', 'key2':'value2'}" -H "Content-Type: application/json " -X POST http://localhost:3000/logEvent
 ```
 
-- To use the `Greeter` class in a JavaScript file -
+### Unit tests
 
-```js
-const Greeter = require('my-amazing-lib').Greeter;
 
-const greeter = new Greeter('World!');
-greeter.greet();
-```
+
+## AWS Deployment
+
+
 
 ## Setting travis and coveralls badges
 1. Sign in to [travis](https://travis-ci.org/) and activate the build for your project.
 2. Sign in to [coveralls](https://coveralls.io/) and activate the build for your project.
 3. Replace {{github-user-name}}/{{github-app-name}} with your repo details like: "gitrepo/project name".
+
+
+ 
+Project created using Yeoman TypeScript NodeJS Generator (https://github.com/ospatil/generator-node-typescript#readme)
