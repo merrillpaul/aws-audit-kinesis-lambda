@@ -16,6 +16,14 @@ functions:
           method: POST
           path: /logEvent
           cors: true
+  auditStream:
+    handler: src/handlers/audit-stream.auditLog
+    events:
+      - stream:
+          type: kinesis
+          #arn: need an arn
+          batchSize: 100
+          startingPosition: LATEST
   
 package:
   include:

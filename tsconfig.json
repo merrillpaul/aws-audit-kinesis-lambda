@@ -22,7 +22,7 @@
     ],
     "baseUrl": "./",
     "paths": {
-      "@audit/*": ["src/*"],
+      "@audit/*": ["src/*"]
     }
   },
   "include": [

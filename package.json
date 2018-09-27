@@ -29,8 +29,10 @@
     "watch": "npm run build -- --watch",
     "watch:test": "jest --watch",
     "kinesis": "kinesalite",
+    "offlineStream": "ts-node -r tsconfig-paths/register --project tsconfig.json src/offline/start-kinesis-stream.ts",
+    "offline": "serverless offline",
     "pretest": "npm i && npm run clean",
-    "prekinesis": "npm i"
+    "preoffline": "npm i"
   },
   "dependencies": {},
   "devDependencies": {
@@ -55,10 +57,11 @@
     "serverless-webpack": "^5.2.0",
     "ts-jest": "^22.0.1",
     "ts-loader": "^5.2.1",
-    "ts-node": "^3.2.0",
+    "ts-node": "^3.3.0",
+    "tsconfig-paths": "^3.6.0",
     "tslint": "^5.0.0",
     "tslint-config-prettier": "^1.1.0",
-    "typescript": "^2.3.0",
+    "typescript": "^2.9.2",
     "webpack": "^4.20.2"
   },
   "engines": {
