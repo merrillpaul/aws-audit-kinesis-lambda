@@ -6,28 +6,28 @@ import { Kinesis } from 'aws-sdk';
 
 export const poll = (kinesis: Kinesis, StreamName: string, logger: any) => {
 
-    const wait = ms => () => new Promise(resolve => setTimeout(resolve, ms));
+    const wait = (ms: number) => () => new Promise(resolve => setTimeout(resolve, ms));
 
-    const callback = (err, result) => (
+    const callback = (err: any, result: any) => (
         err ? logger.error(`Handler failed: ${err.message}`) : logger.log(`Handler suceeded: ${result}`)
     );
 
-    const mapKinesisRecord = record => ({
+    const mapKinesisRecord = (record: any) => ({
         data: record.Data.toString('base64'),
         sequenceNumber: record.SequenceNumber,
         approximateArrivalTimestamp: record.ApproximateArrivalTimestamp,
         partitionKey: record.PartitionKey,
     });
 
-    const reduceRecord = lambda => (promise, kinesisRecord) => promise.then(() => {
+    const reduceRecord = (lambda: any) => (promise: Promise<any>, kinesisRecord: any) => promise.then(() => {
         const singleRecordEvent = { Records: [{ kinesis: mapKinesisRecord(kinesisRecord) }] };
         logger.log('Invoking lambda with record from stream:', JSON.stringify(singleRecordEvent));
         return lambda(singleRecordEvent, null, callback);
     });
 
-    const pollKinesis = lambda => (firstShardIterator) => {
-        const fetchAndProcessRecords = shardIterator => (
-            kinesis.getRecords({ ShardIterator: shardIterator }).promise().then(records => (
+    const pollKinesis = (lambda: any) => (firstShardIterator: any) => {
+        const fetchAndProcessRecords = (shardIterator: any) => (
+            kinesis.getRecords({ ShardIterator: shardIterator }).promise().then((records: any) => (
                 records.Records.reduce(reduceRecord(lambda), Promise.resolve())
                     .then(wait(500))
                     .then(() => fetchAndProcessRecords(records.NextShardIterator))
@@ -36,7 +36,7 @@ export const poll = (kinesis: Kinesis, StreamName: string, logger: any) => {
         return fetchAndProcessRecords(firstShardIterator);
     };
 
-    const run = (lambda) => {
+    const run = (lambda: any) => {
         const loop = () => (
             kinesis.describeStream({ StreamName }).promise()
                 .then((stream) => {

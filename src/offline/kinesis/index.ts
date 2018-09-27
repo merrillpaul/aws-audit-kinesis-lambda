@@ -2,7 +2,7 @@ import { Kinesis } from 'aws-sdk';
 
 import { poll } from './poller';
 
-export const runner = (lambda, _options) => {
+export const runner = (lambda: any, _options: any) => {
     const options = _options || {};
     const kinesis = options.kinesis || new Kinesis({
         endpoint: process.env.KINESIS_ENDPOINT,

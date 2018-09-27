@@ -29,8 +29,9 @@
     "watch": "npm run build -- --watch",
     "watch:test": "jest --watch",
     "kinesis": "kinesalite",
-    "offlineStream": "ts-node -r tsconfig-paths/register --project tsconfig.json src/offline/start-kinesis-stream.ts",
-    "offline": "serverless offline",
+    "createOfflineStream": "ts-node -r tsconfig-paths/register --project tsconfig.json src/offline/start-kinesis-stream.ts",
+    "runOfflineStream": "ts-node -r tsconfig-paths/register --project tsconfig.json src/offline/run-kinesis-lambda-handler.ts",
+    "offline": "concurrently --names \"KINESIS,CREATE_AUDIT,LISTEN_HTTP,LISTEN_AUDIT_STRM\" -c \"bgGreen.bold,bgGreen.bold,bgBlue.bold,bgMagenta.bold\" --kill-others-on-fail \"kinesalite\" \"npm run createOfflineStream\" \"serverless offline start --stage offline\" \"npm run runOfflineStream\"",
     "pretest": "npm i && npm run clean",
     "preoffline": "npm i"
   },
