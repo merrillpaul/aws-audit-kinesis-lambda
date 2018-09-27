@@ -10,7 +10,10 @@ module.exports = {
       '.json',
       '.ts',
       '.tsx'
-    ]
+    ],
+    alias: {
+        '@audit': path.resolve(__dirname, 'src')
+    }
   },
   output: {
     libraryTarget: 'commonjs',

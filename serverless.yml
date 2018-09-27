@@ -6,12 +6,11 @@ provider:
   name: aws
   runtime: nodejs8.10
   region: us-east-2
-  environment:
-    DB_URL: a_db_url
+  environment: ${file(./src/config/env.yml):${opt:stage, self:custom.defaults.stage}}
     
 functions:
   eventsHttp:
-    handler: src/offline/httpHandler.logEvent
+    handler: src/handlers/http.logEvent
     events:
       - http:
           method: POST
@@ -31,7 +30,6 @@ plugins:
 custom:
   defaults:
     stage: dev
-    mode: development
   webpack:
     includeModules: true # enable auto-packing of external modules
   #customDomain:

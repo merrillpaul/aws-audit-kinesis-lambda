@@ -1,9 +1,12 @@
-import { logEvent } from '../src/offline/httpHandler';
+import { logEvent } from '@audit/handlers/http';
+
+import { Context } from 'aws-lambda';
 
 test('Should invoke the callback', () => {
   let called = false;
-  let passedContent;
-  logEvent({ body: { params: { name: 'Tester' } } }, null, (arg1, content) => {
+  let passedContent: any = {};
+  let context: any = {};
+  logEvent({ body: { params: { name: 'Tester' } } }, context, (arg1: any, content: any) => {
     called = true;
     passedContent = content;
   });

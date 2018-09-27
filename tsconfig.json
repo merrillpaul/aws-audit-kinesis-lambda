@@ -19,13 +19,17 @@
     "inlineSourceMap": true,
     "typeRoots": [
       "./node_modules/@types"
-    ]
+    ],
+    "baseUrl": "./",
+    "paths": {
+      "@audit/*": ["src/*"],
+    }
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "__tests__/**/*"
   ],
   "exclude": [
-    "node_modules",
-    "**/*-spec.ts"
+    "node_modules"    
   ]
 }

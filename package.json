@@ -73,6 +73,9 @@
       "ts",
       "js"
     ],
+    "moduleNameMapper": {
+      "^@audit/(.*)": "<rootDir>/src/$1"
+    },
     "testEnvironment": "node"
   }
 }
