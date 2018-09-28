@@ -5,24 +5,51 @@
 
 ## Design
 
+Audit events are placed into a Kinesis stream. Every insertion, triggers a `λ` function which processes the payload and adds to a Elastisearch index.
+This allows an admin to investigate these events using Kibana or any other tools that can interface with ELastisearch.
+
+
 ## Local Setup
+
+This is primarily for emulating the AWS Elastisearch, Kinesis and Lambda locally before deploying to AWS.
 
 ### Elasticsearch
 
+Install Elasticearch as documented in https://www.elastic.co/downloads. Once extracted, add the `bin` to path and test by running 
+```sh
+elasticsearch
+```
+OPen a browser and go to http://localhost:9200 to explore the options of elasticsearch
+
 ### Kibana
+
+
+Install Kibana as documented in https://www.elastic.co/downloads. Once extracted, add the `bin` to path and test by running 
+```sh
+kibana
+```
+Open a browser and go to http://localhost:5601 to explore the UI
 
 ## Offline mode
 
-### Kinesalite
+Allow to run the system locally in offline mode.
+`npm run offline`
 
-### Publish to Kinesis
+This:
+- Starts **Kinesis** using the kinesalite npm module to emulate kinesis
+- Creates the required Kinesis stream for Audit log
+- Starts a listener on to the above stream so as to invoke the handler
+- Starts a demo http endpoint which can be used to test to insert an object into Kinesis
+
+
+### Test Publish to Kinesis
 ```sh
 curl -d "{'key1':'value1', 'key2':'value2'}" -H "Content-Type: application/json " -X POST http://localhost:3000/logEvent
 ```
 
 ### Unit tests
 
-
+`npm test`
 
 ## AWS Deployment
 
