@@ -44,7 +44,49 @@ This:
 
 ### Test Publish to Kinesis
 ```sh
-curl -d "{'key1':'value1', 'key2':'value2'}" -H "Content-Type: application/json " -X POST http://localhost:3000/logEvent
+curl -X POST \
+  http://localhost:3000/logEvent \
+  -H 'Cache-Control: no-cache' \
+  -H 'Content-Type: application/json' \
+  -H 'Postman-Token: 8d8398bc-99b2-474a-8af9-84eb0a58264a' \
+  -H 'User-Agent: Assess/Webview' \
+  -d '[
+     {
+          "username": "mpaul",
+          "userId": "A1000",
+          "eventDate": 1536866853371,
+          "eventType": "sometype1",
+          "area": "area1",
+          "clientId": "CL0001",
+          "clientName": "Jane",
+          "deviceId": "asads100",
+          "deviceName": "ipAd",
+          "entity": "Internal QA",
+          "bu": "US BU",
+          "offline": true,
+          "changes": [
+               {
+                    "fieldName": "fr",
+                    "oldValue": "old",
+                    "newValue": "new"
+               }
+          ]
+     },
+     {
+          "username": "upaulm2",
+          "userId": "B1000",
+          "eventDate": 1536866857287,
+          "eventType": "sometype2",
+          "area": "area2",
+          "clientId": "CL0002",
+          "clientName": "Joe",
+          "deviceId": "asads200",
+          "deviceName": "Android",
+          "offline": false,
+          "entity": "Internal QA1",
+          "bu": "CA BU"
+     }
+]'
 ```
 
 ### Unit tests

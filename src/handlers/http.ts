@@ -17,9 +17,8 @@ const kinesis: Kinesis = new Kinesis({
  * @param callback 
  */
 export const logEvent: Handler =  (event: any, context: any, callback: Callback) => {
-    console.log("You POSTed an event!");
     kinesis.putRecord({
-        Data: JSON.stringify(event.body),
+        Data: event.body,
         PartitionKey: 'US',
         StreamName: process.env.KINESIS_STREAM_NAME_AUDIT_LOG as string
     }, (err) => { 
@@ -28,7 +27,7 @@ export const logEvent: Handler =  (event: any, context: any, callback: Callback)
             callback(err, { statusCode: 500, body: "Error writing to kinesis" } );
         } else { 
             console.log("Return success from http after putting kinesis");
-            callback(null, { statusCode: 200, body: JSON.stringify({status: "Success", body: event.body})} );
+            callback(null, { statusCode: 200, body: JSON.stringify({status: "Success"})} );
         }
     });
 };

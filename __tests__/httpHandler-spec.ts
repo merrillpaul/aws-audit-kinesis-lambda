@@ -29,12 +29,7 @@ describe("Http Handler", () => {
     expect(called).toBeTruthy();
     expect(passedContent.statusCode).toBe(200);
     expect(passedContent.body).toEqual(JSON.stringify({
-      status: "Success",
-      body: {
-        params: {
-          name: "Tester"
-        }
-      }
+      status: "Success"
     }));
     expect(params.PartitionKey).toBe("US");
     expect(params.StreamName).toBe("MY_AUDIT_STREAM");
