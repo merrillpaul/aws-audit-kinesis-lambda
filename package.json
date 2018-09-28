@@ -31,7 +31,8 @@
     "kinesis": "kinesalite",
     "createOfflineStream": "ts-node -r tsconfig-paths/register --project tsconfig.json src/offline/start-kinesis-stream.ts",
     "runOfflineStream": "ts-node -r tsconfig-paths/register --project tsconfig.json src/offline/run-kinesis-lambda-handler.ts",
-    "offline": "concurrently --names \"KINESIS,CREATE_AUDIT,LISTEN_HTTP,LISTEN_AUDIT_STRM\" -c \"bgGreen.bold,bgGreen.bold,bgBlue.bold,bgMagenta.bold\" --kill-others-on-fail \"kinesalite\" \"npm run createOfflineStream\" \"serverless offline start --stage offline\" \"npm run runOfflineStream\"",
+    "kibanaUi": "ts-node -r tsconfig-paths/register --project tsconfig.json src/offline/launch-kibana-ui.ts",
+    "offline": "concurrently --names \"ELASTICSEARCH,KIBANA,KINESIS,CREATE_AUDIT,LISTEN_HTTP,LISTEN_AUDIT_STRM,KIBANAUI\" -c \"bgYellow,bgRed,bgGreen.bold,bgGreen.bold,bgBlue.bold,bgMagenta.bold,bgWhite\" --kill-others-on-fail \"elasticsearch\" \"kibana\"  \"kinesalite\" \"npm run createOfflineStream\" \"serverless offline start --stage offline\" \"npm run runOfflineStream\" \"npm run kibanaUi\"",
     "pretest": "npm i && npm run clean",
     "preoffline": "npm i"
   },
@@ -44,6 +45,7 @@
     "@types/js-yaml": "^3.11.2",
     "@types/node": "^8.0.0",
     "aws-sdk": "^2.323.0",
+    "chrome-launcher": "^0.10.5",
     "concurrently": "^4.0.1",
     "coveralls": "^2.0.0",
     "elasticsearch": "^15.1.1",
