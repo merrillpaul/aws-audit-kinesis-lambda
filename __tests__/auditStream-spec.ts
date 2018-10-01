@@ -74,12 +74,12 @@ describe("Audit Kinesis Handler", () => {
             Records: [
                 {
                     kinesis: {
-                        data: Buffer.from(JSON.stringify(records1, null, 5)).toString('base64')
+                        data: Buffer.from(JSON.stringify({ events: records1 }, null, 5)).toString('base64')
                     }
                 },
                 {
                     kinesis: {
-                        data: Buffer.from(JSON.stringify(records2, null, 5)).toString('base64')
+                        data: Buffer.from(JSON.stringify({ events: records2 }, null, 5)).toString('base64')
                     }
                 }
             ]

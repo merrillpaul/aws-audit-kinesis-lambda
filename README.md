@@ -48,45 +48,47 @@ curl -X POST \
   http://localhost:3000/logEvent \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
-  -H 'Postman-Token: 8d8398bc-99b2-474a-8af9-84eb0a58264a' \
+  -H 'Postman-Token: 628ba423-db37-430c-8661-14f3a4bdfb9f' \
   -H 'User-Agent: Assess/Webview' \
-  -d '[
-     {
-          "username": "mpaul",
-          "userId": "A1000",
-          "eventDate": 1536866853371,
-          "eventType": "sometype1",
-          "area": "area1",
-          "clientId": "CL0001",
-          "clientName": "Jane",
-          "deviceId": "asads100",
-          "deviceName": "ipAd",
-          "entity": "Internal QA",
-          "bu": "US BU",
-          "offline": true,
-          "changes": [
-               {
-                    "fieldName": "fr",
-                    "oldValue": "old",
-                    "newValue": "new"
-               }
-          ]
-     },
-     {
-          "username": "upaulm2",
-          "userId": "B1000",
-          "eventDate": 1536866857287,
-          "eventType": "sometype2",
-          "area": "area2",
-          "clientId": "CL0002",
-          "clientName": "Joe",
-          "deviceId": "asads200",
-          "deviceName": "Android",
-          "offline": false,
-          "entity": "Internal QA1",
-          "bu": "CA BU"
-     }
-]'
+  -d '{
+    "events": [
+        {
+            "username": "mpaul",
+            "userId": "A1000",
+            "eventDate": "20181002T161932+0000",
+            "eventType": "sometype1",
+            "area": "area1",
+            "clientId": "CL0001",
+            "clientName": "Jane",
+            "deviceId": "asads100",
+            "deviceName": "ipAd",
+            "entity": "Internal QA",
+            "bu": "US BU",
+            "offline": true,
+            "changes": [
+                {
+                        "fieldName": "fr",
+                        "oldValue": "old",
+                        "newValue": "new"
+                }
+            ]
+        },
+        {
+            "username": "upaulm2",
+            "userId": "B1000",
+            "eventDate": "20181011T161932+0000",
+            "eventType": "sometype2",
+            "area": "area2",
+            "clientId": "CL0002",
+            "clientName": "Joe",
+            "deviceId": "asads200",
+            "deviceName": "Android",
+            "offline": false,
+            "entity": "Internal QA1",
+            "bu": "CA BU"
+        }
+    ]
+  }'
 ```
 
 ### Unit tests

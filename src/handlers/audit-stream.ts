@@ -53,10 +53,10 @@ export const auditLog: Handler = (event: any, context: any, callback: Callback) 
     if(!esClient) {
         esClient = new ESClient('audit', 'assess');
     }
-    
     event.Records.forEach((record: any) => {
         const payload = new Buffer(record.kinesis.data, 'base64').toString('utf-8');
-        const events: AssessAuditEvent[] = JSON.parse(payload);
+        const eventPayload: any = JSON.parse(payload);
+        const events: AssessAuditEvent[] = eventPayload.events;
         console.log(`Received a Kinesis event:  for ${events.length} event(s)`);
         esClient.processAssessLogs(events);
     });

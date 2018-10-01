@@ -1,10 +1,12 @@
 import { Client } from "elasticsearch";
 import { AssessAuditEvent } from "@audit/models/event";
 
+
+//let indexExistsCheck: boolean = false;
 export class ESClient {
     
     private client: Client;
-    private indexCreated: boolean = false;
+     
     
     constructor(private index: string, private type: string) {
         this.client = new Client({
@@ -14,43 +16,46 @@ export class ESClient {
     }
 
     public processAssessLogs(logs: AssessAuditEvent[]): void {
-        if (!this.indexCreated) {
+       // if (!indexExistsCheck) {
             const mapping = `
                     {
                         "${this.type}": {
                             "properties": {
                                 "eventDate": {
                                     "type":   "date",
-                                    "format": "epoch_millis"
+                                    "format": "yyyyMMdd'T'HHmmssZ"
                                 }
                             }
                         }
                     }
                 `;
-            this.client.indices.create({
-                index: this.index,
-                body: {
-                    mappings: JSON.parse(mapping)
-                }
-            }).then (() => {
-                
-               /* this.client.indices.putMapping({
-                    index: this.index,
-                    type: this.type,
-                    body: JSON.parse(mapping)
-                }).then(() => {
-                    this.indexCreated = true;
-                    this.postLogs(logs);
-                }); */  
-                this.indexCreated = true;
-                this.postLogs(logs);            
+            
+
+            this.client.indices.exists({
+                index: this.index
+            }).then(exists => {
+                if (exists === false) {
+                    return this.client.indices.create({
+                        index: this.index,
+                        body: {
+                            mappings: JSON.parse(mapping)
+                        }
+                    }).then (() => {
+                        return true;
+                    })
+                } else {
+                    return true;
+                } 
+            }).then(status => {
+                //indexExistsCheck = true;
+                this.postLogs(logs);  
             })
-            .catch(err => {
-                console.warn(`Warning for tryying to create a ES index ${this.index}`, err.body);
+            .catch(err => {               
+                console.error(`Error in creating and/or checking index for ${this.index}`);
             });            
-        } else {
+       /* } else {
             this.postLogs(logs);
-        }
+        }*/
     }
 
     private postLogs(logs: AssessAuditEvent[]): void {
