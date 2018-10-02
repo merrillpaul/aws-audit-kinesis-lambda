@@ -105,5 +105,6 @@ curl -X POST \
 3. Replace {{github-user-name}}/{{github-app-name}} with your repo details like: "gitrepo/project name".
 
 
- 
-Project created using Yeoman TypeScript NodeJS Generator (https://github.com/ospatil/generator-node-typescript#readme)
+## References 
+ - Project created using [Yeoman TypeScript NodeJS Generator](https://github.com/ospatil/generator-node-typescript#readme)
+ - Offline Kinesis inspired from http://blogs.lessthandot.com/index.php/enterprisedev/cloud/serverless-http-kinesis-lambdas-with-offline-development/
