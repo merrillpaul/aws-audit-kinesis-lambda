@@ -8,6 +8,8 @@
 Audit events are placed into a Kinesis stream. Every insertion, triggers a `λ` function which processes the payload and adds to a Elastisearch index.
 This allows an admin to investigate these events using Kibana or any other tools that can interface with ELastisearch.
 
+![Architecture](doc/arch.gif?raw=true "Architecture")
+
 
 ## Local Setup
 

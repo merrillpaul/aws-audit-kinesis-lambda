@@ -59,7 +59,7 @@ export const handle: Handler = (event: any, context: any, callback: Callback) =>
         const eventPayload: any = JSON.parse(payload);
         const events: AssessAuditEvent[] = eventPayload.events;
         console.log(`Received a Kinesis event:  for ${events.length} event(s)`, events);
-        //esClient.processAssessLogs(events);
+        esClient.processAssessLogs(events);
     });
     callback(null, `Successfully processed ${event.Records.length} event.`);
 };
