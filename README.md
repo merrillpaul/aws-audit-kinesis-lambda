@@ -3,7 +3,7 @@
 
 ## Design
 
-![Architecture](doc/arch.jpeg?raw=true "Architecture")
+![Architecture](doc/arch.jpg?raw=true "Architecture")
 
 - Diagram prepped from [AWS Draw IO](https://www.draw.io/?splash=0&libs=aws3). Import the [audit log DrawIO XML](doc/arch.draw.io.xml) into the webapp.
 
