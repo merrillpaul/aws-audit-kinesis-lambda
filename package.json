@@ -40,6 +40,7 @@
     "deploy": "SLS_DEBUG=* serverless deploy --stage dev",
     "deploy:prod": "SLS_DEBUG=* serverless deploy --stage prod",
     "remove": "SLS_DEBUG=* serverless remove --stage dev",
+    "remove:prod": "SLS_DEBUG=* serverless remove --stage prod",
     "predeploy": "npm i"
   },
   "dependencies": {},

@@ -1,15 +1,19 @@
 
 # Audit log processing with AWS Serverless with Kinesis streams
 
-
-
 ## Design
-
-Audit events are placed into a Kinesis stream. Every insertion, triggers a `λ` function which processes the payload and adds to a Elastisearch index.
-This allows an admin to investigate these events using Kibana or any other tools that can interface with ELastisearch.
 
 ![Architecture](doc/arch.gif?raw=true "Architecture")
 
+### Assess
+Assess sends the audit events collected over time , offline or online , over to Central through a sync process.
+
+### Central
+- Audit events are logged using Log4j to a file in each App server
+- [Kinesis agent](https://github.com/awslabs/amazon-kinesis-agent) tails and sends the logs to a generic audit AWS Kinesis stream
+- The Generic AWS Kinesis stream forwards to a specific Kinesis stream based on a type and partitions it
+- The specific stream processes the payload and sends it over to AWS Elasticsearch under an Index
+- Kibana is used to interrogate into these indices for events
 
 ## Local Setup
 
@@ -103,6 +107,20 @@ curl -X POST \
 `npm test`
 
 ## AWS Deployment
+
+### Setup
+Obtain the aws credentials, the access and secret key
+- `AWS access keys and secret keys as env variables setup either in `~/.aws/credentials` using `aws configure` commands
+- All deploy commands can also be done by providing env variables as `aws_access_key_id=somekey aws_secret_access_key=xxxx npm run <deploy_method>`
+
+### First time
+`npm run deploy` deploys to AWS with the **dev** stage
+`npm run deploy:prod` deploys to AWS with **prod** stage
+
+### Subsequent
+This is when we need to update any logic in our processing source ( Lambda ). If the stack was previously created and if you want to re-deploy , call this in order
+- `npm run remove` or `npm run remove:prod` for dev or prod
+- `npm run deploy` or `npm run deploy:prod` for dev or prod
 
 
 
