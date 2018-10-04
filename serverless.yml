@@ -44,13 +44,6 @@ custom:
   #     #Kinesis: http://localhost:4567
     
 functions:
-  # eventsHttp:
-  #   handler: src/handlers/http.logEvent
-  #   events:
-  #     - http:
-  #         method: POST
-  #         path: /logEvent
-  #         cors: true
   assessStream:
     handler: src/handlers/assess-stream.handle
     events:
