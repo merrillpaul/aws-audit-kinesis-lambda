@@ -1,6 +1,8 @@
 import { Kinesis, Request, AWSError } from 'aws-sdk';
 
-import { yaml2env } from '@audit/utils/yaml-reader';
+import clientConfig  from  '@audit/utils/kinesis-client';
+import { String } from 'aws-sdk/clients/discovery';
+
 
 /**
  * This is to bootstrap a kinesis stream in local env. Obviously this doesnt happen in 
@@ -8,20 +10,9 @@ import { yaml2env } from '@audit/utils/yaml-reader';
  * 
  * This is strictly for OFFLINE mode.
  */
+const kinesis: Kinesis = new Kinesis(clientConfig);
 
-
-// load all offline env properties
-yaml2env('./src/config/env.yml', 'offline');
-
-const kinesis: Kinesis = new Kinesis({
-    endpoint: `${process.env.KINESIS_HOST}:${process.env.KINESIS_PORT}`,
-    region: process.env.KINESIS_REGION,
-    apiVersion: 'latest',
-    sslEnabled: false
-});
-
-const createStream = () => {
-    const streamName = process.env.KINESIS_STREAM_NAME_AUDIT_LOG as string;
+const createStream = (streamName: String) => {
     const request: Request<{}, AWSError> =
         kinesis.createStream({ ShardCount: 1, StreamName: streamName});
     request.send ((err: AWSError, data) => {
@@ -41,4 +32,5 @@ const createStream = () => {
     });
 };
 
-createStream();
+[process.env.KINESIS_STREAM_NAME_ASSESS_LOG, process.env.KINESIS_STREAM_NAME_AUDIT_LOG].forEach(streamName => createStream(streamName as string));
+

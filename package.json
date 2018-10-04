@@ -32,10 +32,15 @@
     "kinesis_agent": "ts-node -r tsconfig-paths/register --project tsconfig.json src/offline/launch-kinesis-agent.ts",
     "createOfflineStream": "ts-node -r tsconfig-paths/register --project tsconfig.json src/offline/start-kinesis-stream.ts",
     "runOfflineStream": "ts-node -r tsconfig-paths/register --project tsconfig.json src/offline/run-kinesis-lambda-handler.ts",
+    "kibana": "ts-node -r tsconfig-paths/register --project tsconfig.json src/offline/launch-kibana.ts",
     "kibanaUi": "ts-node -r tsconfig-paths/register --project tsconfig.json src/offline/launch-kibana-ui.ts",
-    "offline": "concurrently --names \"ELASTICSEARCH,KIBANA,KINESIS,CREATE_AUDIT,LISTEN_HTTP,LISTEN_AUDIT_STRM,KIBANAUI,KINESIS_AGENT\" -c \"bgYellow,bgRed,bgGreen.bold,bgGreen.bold,bgBlue.bold,bgMagenta.bold,bgWhite,bgGreen\" --kill-others-on-fail \"elasticsearch\" \"kibana\"  \"kinesalite\" \"npm run createOfflineStream\" \"serverless offline start --stage offline\" \"npm run runOfflineStream\" \"npm run kibanaUi\" \"npm run kinesis_agent\"",
+    "offline": "concurrently --names \"ELASTICSEARCH,KIBANA,KINESIS,CREATE_AUDIT,LISTEN_HTTP,LISTEN_AUDIT_STRM,KIBANAUI,KINESIS_AGENT\" -c \"bgYellow,bgRed,bgGreen.bold,bgGreen.bold,bgBlue.bold,bgMagenta.bold,bgWhite,bgGreen\" --kill-others-on-fail \"elasticsearch\" \"npm run kibana\"  \"kinesalite\" \"npm run createOfflineStream\" \"serverless offline start --stage local\" \"npm run runOfflineStream\" \"npm run kibanaUi\" \"npm run kinesis_agent\"",
     "pretest": "npm i && npm run clean",
-    "preoffline": "npm i"
+    "preoffline": "npm i",
+    "deploy": "SLS_DEBUG=* serverless deploy --stage dev",
+    "deploy:prod": "SLS_DEBUG=* serverless deploy --stage prod",
+    "remove": "SLS_DEBUG=* serverless remove --stage dev",
+    "predeploy": "npm i"
   },
   "dependencies": {},
   "devDependencies": {
@@ -58,6 +63,7 @@
     "rimraf": "^2.0.0",
     "serverless": "^1.32.0",
     "serverless-domain-manager": "^2.6.5",
+    "serverless-localstack": "^0.3.1",
     "serverless-offline": "^3.25.14",
     "serverless-webpack": "^5.2.0",
     "tail": "^2.0.0",

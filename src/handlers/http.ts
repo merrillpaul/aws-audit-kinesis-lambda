@@ -1,13 +1,8 @@
 import { Handler, Callback } from 'aws-lambda';
 import { Kinesis } from 'aws-sdk';
+import clientConfig from  '@audit/utils/kinesis-client';
 
-
-const kinesis: Kinesis = new Kinesis({
-    endpoint: `${process.env.KINESIS_HOST}:${process.env.KINESIS_PORT}`,
-    region: process.env.KINESIS_REGION,
-    apiVersion: 'latest',
-    sslEnabled: false
-});
+const kinesis: Kinesis = new Kinesis(clientConfig);
 
 
 /**
@@ -17,10 +12,10 @@ const kinesis: Kinesis = new Kinesis({
  * @param callback 
  */
 export const logEvent: Handler =  (event: any, context: any, callback: Callback) => {
-    kinesis.putRecord({
+    /*kinesis.putRecord({
         Data: event.body,
         PartitionKey: 'US',
-        StreamName: process.env.KINESIS_STREAM_NAME_AUDIT_LOG as string
+        StreamName: process.env.KINESIS_STREAM_NAME_ASSESS_LOG as string
     }, (err) => { 
         if (err) {
             console.error("Error", err);
@@ -29,5 +24,8 @@ export const logEvent: Handler =  (event: any, context: any, callback: Callback)
             console.log("Return success from http after putting kinesis");
             callback(null, { statusCode: 200, body: JSON.stringify({status: "Success"})} );
         }
-    });
+    });*/
+    //local-qi-audit-assess-log-stream
+    console.log(`Http logevent`, process.env);
+    callback(null, { statusCode: 200, body: JSON.stringify({status: "Success"})} );
 };

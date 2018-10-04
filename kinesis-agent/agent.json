@@ -4,7 +4,7 @@
     "flows": [
       {
         "filePattern": "/tmp/choose-share/audit-kinesis-agent.log*",
-        "kinesisStream": "qi-assess-audit-log-stream",
+        "kinesisStream": "local-qi-audit-audit-stream",
         "maxBufferAgeMillis": 3000
       }
     ]

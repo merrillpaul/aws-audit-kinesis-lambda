@@ -1,5 +1,13 @@
 import { FieldChange } from "./change";
 
+
+export interface AuditEvent {
+    type: string;
+    payload: any;
+    partitionKey: string;
+}
+
+
 export interface AssessAuditEvent {
     username: string;
     userId: string;

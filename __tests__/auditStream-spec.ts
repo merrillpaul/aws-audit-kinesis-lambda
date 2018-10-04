@@ -1,4 +1,4 @@
-import { auditLog } from '@audit/handlers/audit-stream';
+import { handle } from '@audit/handlers/assess-stream';
 
 
 jest.mock('@audit/utils/elasti-client');
@@ -70,7 +70,7 @@ describe("Audit Kinesis Handler", () => {
         });
         let passedContent: any = {};
         let context: any = {};
-        auditLog({
+        handle({
             Records: [
                 {
                     kinesis: {

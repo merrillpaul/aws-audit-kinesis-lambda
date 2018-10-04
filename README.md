@@ -14,32 +14,37 @@ This allows an admin to investigate these events using Kibana or any other tools
 This is primarily for emulating the AWS Elastisearch, Kinesis and Lambda locally before deploying to AWS.
 
 ### Elasticsearch
-
-Install Elasticearch as documented in https://www.elastic.co/downloads. Once extracted, add the `bin` to path and test by running 
+Install from https://www.elastic.co/downloads. 
+Once extracted, add the `bin` to path (bash_profile etc ) and test by running 
 ```sh
 elasticsearch
 ```
-OPen a browser and go to http://localhost:9200 to explore the options of elasticsearch
+Open a browser and go to http://localhost:9200 to check the status. 
+Kill the elasticsearch server as this will be started using npm.
 
 ### Kibana
 
+Install Kibana as documented in https://www.elastic.co/downloads. 
 
-Install Kibana as documented in https://www.elastic.co/downloads. Once extracted, add the `bin` to path and test by running 
+Once extracted, add the `bin` to path (bash_profile etc ) and test by running 
 ```sh
 kibana
 ```
-Open a browser and go to http://localhost:5601 to explore the UI
+Open a browser and go to http://localhost:5601 to explore the UI. 
+Kill the kibana server as this will be started using npm.
 
-## Offline mode
+
+### Offline mode
 
 Allow to run the system locally in offline mode.
 `npm run offline`
 
 This:
 - Starts **Kinesis** using the kinesalite npm module to emulate kinesis
-- Creates the required Kinesis stream for Audit log
+- Creates the required Kinesis streams for Audit log
 - Starts a listener on to the above stream so as to invoke the handler
 - Starts a demo http endpoint which can be used to test to insert an object into Kinesis
+- Starts the kinesis agent watching log files. Look at `./kinesis-agent/agent.json`
 
 
 ### Test Publish to Kinesis
