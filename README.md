@@ -3,7 +3,9 @@
 
 ## Design
 
-![Architecture](doc/arch.gif?raw=true "Architecture")
+![Architecture](doc/arch.svg "Architecture")
+
+- Diagram prepped from [AWS Draw IO](https://www.draw.io/?splash=0&libs=aws3). Import the [audit log DrawIO XML](doc/arch.draw.io.xml) into the webapp.
 
 ### Assess
 Assess sends the audit events collected over time , offline or online , over to Central through a sync process.
@@ -14,6 +16,8 @@ Assess sends the audit events collected over time , offline or online , over to 
 - The Generic AWS Kinesis stream forwards to a specific Kinesis stream based on a type and partitions it
 - The specific stream processes the payload and sends it over to AWS Elasticsearch under an Index
 - Kibana is used to interrogate into these indices for events
+
+
 
 ## Local Setup
 
